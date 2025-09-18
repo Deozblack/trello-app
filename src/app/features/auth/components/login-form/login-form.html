@@ -1,0 +1,75 @@
+<form class="space-y-6" autocomplete="off">
+  <!-- Email Field -->
+  <div class="space-y-2">
+    <label for="email" class="block text-sm font-medium text-gray-200"> Email </label>
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+          ></path>
+        </svg>
+      </div>
+      <input
+        id="email"
+        type="email"
+        name="email"
+        required
+        autocomplete="off"
+        placeholder="tu@email.com"
+        class="w-full pl-10 pr-4 py-3 bg-black/20 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all duration-200"
+      />
+    </div>
+  </div>
+
+  <!-- Password Field -->
+  <div class="space-y-2">
+    <label for="password" class="block text-sm font-medium text-gray-200"> Contraseña </label>
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          ></path>
+        </svg>
+      </div>
+      <input
+        id="password"
+        type="password"
+        name="password"
+        required
+        autocomplete="current-password"
+        placeholder="••••••••"
+        class="w-full pl-10 pr-4 py-3 bg-black/20 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all duration-200"
+      />
+    </div>
+  </div>
+
+  <!-- Options -->
+  <div class="flex items-center justify-between">
+    <label class="flex items-center">
+      <input
+        type="checkbox"
+        class="w-4 h-4 text-blue-600 bg-black/20 border-blue-500/30 rounded focus:ring-blue-500 focus:ring-2"
+      />
+      <span class="ml-2 text-sm text-gray-300">Recordarme</span>
+    </label>
+    <a href="#" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+      ¿Olvidaste tu contraseña?
+    </a>
+  </div>
+
+  <!-- Submit Button -->
+  <button
+    type="submit"
+    class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black cursor-pointer"
+  >
+    Iniciar Sesión
+  </button>
+</form>
