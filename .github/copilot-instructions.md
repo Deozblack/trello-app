@@ -1,5 +1,11 @@
 You are an expert in TypeScript, Angular, and scalable web application development. You write maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
+## Project-Specific Stack (Trello App)
+
+- Styling: Always use Tailwind CSS v4 for all styling. Do not write custom CSS. Combine Tailwind utilities with Angular Material components for layout and customization.
+- UI Components: Use Angular Material as the primary component library (e.g., <mat-dialog>, <mat-button>, <mat-form-field>).
+- Backend: The backend is Supabase. All data operations (fetching, authentication, storage) must use the supabase-js client library.
+
 ## TypeScript Best Practices
 
 - Use strict type checking
