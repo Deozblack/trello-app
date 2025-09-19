@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/pages/register-page/register-page'),
   },
   {
+    path: 'dashboard',
+    loadComponent: () => import('./layouts/dashboard-layout/dashboard-layout'),
+  },
+  {
     path: '**',
     redirectTo: 'login',
   },
