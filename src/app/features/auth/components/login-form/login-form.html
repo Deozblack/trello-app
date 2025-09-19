@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-6" autocomplete="off">
+<form [formGroup]="loginForm" (submit)="login()" class="space-y-6" autocomplete="off">
   <!-- Email Field -->
   <div class="space-y-2">
     <label for="email" class="block text-sm font-medium text-gray-200"> Email </label>
@@ -22,8 +22,11 @@
         placeholder="tu@email.com"
         class="input-text"
         formControlName="email"
+        [class.border-red-500]="emailControl?.invalid && emailControl?.touched"
       />
     </div>
+    <!-- Error message for email -->
+    <app-error-message [control]="emailControl" />
   </div>
 
   <!-- Password Field -->
@@ -49,8 +52,10 @@
         placeholder="••••••••"
         class="input-text"
         formControlName="password"
+        [class.border-red-500]="passwordControl?.invalid && passwordControl?.touched"
       />
     </div>
+    <app-error-message [control]="passwordControl" />
   </div>
 
   <!-- Options -->
