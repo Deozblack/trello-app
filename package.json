@@ -32,6 +32,7 @@
     "@angular/material": "20.2.4",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
+    "@supabase/supabase-js": "^2.39.7",
     "@tailwindcss/postcss": "^4.1.13",
     "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
@@ -57,5 +58,15 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.40.0"
+  },
+  "overrides": {
+    "@supabase/supabase-js": {
+      "@supabase/gotrue-js": "2.61.0"
+    }
+  },
+  "pnpm": {
+    "overrides": {
+      "@supabase/supabase-js>@supabase/gotrue-js": "2.61.0"
+    }
   }
 }
