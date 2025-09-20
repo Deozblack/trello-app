@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorMessage } from '../../../../shared/components/error-message/error-message';
+import { AlertService } from '../../../../shared/services/alert';
 
 @Component({
   selector: 'app-login-form',
@@ -12,14 +13,14 @@ import { ErrorMessage } from '../../../../shared/components/error-message/error-
 })
 export class LoginForm implements OnInit {
   private authService = inject(AuthService);
+  private alertService = inject(AlertService);
   private router = inject(Router);
-
   public loginForm!: FormGroup;
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      email: new FormControl('omar@correo.com', [Validators.required, Validators.email]),
+      password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
     });
   }
 
@@ -29,14 +30,16 @@ export class LoginForm implements OnInit {
       this.loginForm.markAllAsTouched();
       return;
     }
-    console.log('object');
     this.authService.login$(email, password).subscribe({
       next: (response) => {
         if (response.error) {
-          console.error('Login error:', response.error.message);
+          this.alertService.createAlert({
+            icon: 'error',
+            message: 'Credenciales inválidas',
+            position: 'top-end',
+          });
           return;
         }
-        console.log('Login successful:', response);
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
