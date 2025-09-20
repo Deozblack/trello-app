@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorMessage } from '../../../../shared/components/error-message/error-message';
 import { AlertService } from '../../../../shared/services/alert';
@@ -14,13 +14,14 @@ import { AlertService } from '../../../../shared/services/alert';
 export class LoginForm implements OnInit {
   private authService = inject(AuthService);
   private alertService = inject(AlertService);
-  private router = inject(Router);
+
   public loginForm!: FormGroup;
+  public isLoading = computed(() => this.authService.isLoading());
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('omar@correo.com', [Validators.required, Validators.email]),
-      password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
 
@@ -40,15 +41,18 @@ export class LoginForm implements OnInit {
           });
           return;
         }
-        this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.error('Login failed:', error);
+        this.alertService.createAlert({
+          icon: 'error',
+          message: 'Error al iniciar sesión. Intenta de nuevo.',
+          position: 'top-end',
+        });
       },
     });
   }
 
-  // Getters para facilitar el acceso a los controles en el template
   get emailControl() {
     return this.loginForm.get('email');
   }
