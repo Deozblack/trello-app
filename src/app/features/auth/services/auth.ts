@@ -1,8 +1,9 @@
 import { inject, Injectable, signal, computed } from '@angular/core';
 import { SupabaseService } from '../../../shared/services/supabase';
-import { finalize, from, Observable } from 'rxjs';
+import { finalize, from, Observable, switchMap } from 'rxjs';
 import { AuthTokenResponsePassword, User, Session, AuthResponse } from '@supabase/supabase-js';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,11 @@ export class AuthService {
   private supabaseService = inject(SupabaseService);
   private router = inject(Router);
 
-  // Signals para el estado de autenticación
+  // Signals for storing auth state
   currentUser = signal<User | null>(null);
   isLoading = signal<boolean>(true);
 
-  // Computed signal derivado del currentUser
+  // Computed signal derived from currentUser
   isAuthenticated = computed(() => !!this.currentUser());
 
   constructor() {
@@ -27,7 +28,7 @@ export class AuthService {
       this.handleAuthStateChange(session, event);
     });
 
-    // Verificar sesión inicial
+    // Check initial session
     this.checkInitialSession();
   }
 
@@ -49,7 +50,7 @@ export class AuthService {
     const user = session?.user ?? null;
     this.currentUser.set(user);
 
-    // Redireccionar automáticamente después de un login exitoso
+    // Redirect automatically after a successful login
     if (event === 'SIGNED_IN' && user) {
       this.router.navigate(['/dashboard']);
     }
@@ -62,10 +63,50 @@ export class AuthService {
     );
   }
 
-  register$(email: string, password: string): Observable<AuthResponse> {
+  register$(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ): Observable<AuthResponse> {
     this.isLoading.set(true);
-    return from(this.supabaseService.client.auth.signUp({ email, password })).pipe(
+    return from(
+      this.supabaseService.client.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${environment.URL_APP}/login`,
+        },
+      })
+    ).pipe(
+      switchMap((authResponse) => {
+        // If registration was successful and we have a user, update their profile
+        if (authResponse.data.user && !authResponse.error) {
+          return this.updateUserProfile$(authResponse.data.user.id, firstName, lastName).pipe(
+            // Return the original auth response after updating the profile
+            switchMap(() => from(Promise.resolve(authResponse)))
+          );
+        }
+        // If there's no user or an error, return the original response
+        return from(Promise.resolve(authResponse));
+      }),
       finalize(() => this.isLoading.set(false))
+    );
+  }
+
+  private updateUserProfile$(
+    userId: string,
+    firstName: string,
+    lastName: string
+  ): Observable<unknown> {
+    return from(
+      this.supabaseService.client
+        .from('profiles')
+        .update({
+          first_name: firstName,
+          last_name: lastName,
+        })
+        .eq('id', userId)
     );
   }
 
