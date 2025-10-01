@@ -131,11 +131,17 @@ jobs:
       - name: Comment deployment URL
         uses: actions/github-script@v7
         if: github.event_name == 'push'
+        continue-on-error: true
         with:
           script: |
-            github.rest.repos.createCommitComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha,
-              body: '🚀 Deployed to production: ${{ steps.deploy.outputs.preview-url }}'
-            })
+            try {
+              await github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: '🚀 Deployed to production: ${{ steps.deploy.outputs.preview-url }}'
+              });
+            } catch (error) {
+              console.log('Could not create commit comment, but deployment succeeded');
+              console.log(error.message);
+            }
