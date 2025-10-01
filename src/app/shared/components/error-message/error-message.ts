@@ -12,11 +12,11 @@ type CustomErrorMessages = Record<string, string>;
     .error-container {
       transition: all 0.3s ease;
     }
-    
+
     .error-message {
       animation: slideDown 0.3s ease-out;
     }
-    
+
     @keyframes slideDown {
       from {
         opacity: 0;

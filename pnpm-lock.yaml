@@ -35,6 +35,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: 4.1.13
         version: 4.1.13
+      animate.css:
+        specifier: ^4.1.1
+        version: 4.1.1
       postcss:
         specifier: 8.5.6
         version: 8.5.6
@@ -99,6 +102,9 @@ importers:
       karma-jasmine-html-reporter:
         specifier: ~2.1.0
         version: 2.1.0(jasmine-core@5.9.0)(karma-jasmine@5.1.0(karma@6.4.4))(karma@6.4.4)
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       typescript:
         specifier: ~5.9.2
         version: 5.9.2
@@ -2005,6 +2011,9 @@ packages:
       typescript: '*'
       typescript-eslint: ^8.0.0
 
+  animate.css@4.1.1:
+    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
+
   ansi-escapes@4.3.2:
     resolution: {integrity: sha512-gKXj5ALrKWQLsYG9jlTRmR/xKluxHV+Z9QEwNIgCfM1/uwPMCuzVVnh5mwTd+OuBZcwSIMbqssNWRm1lE51QaQ==}
     engines: {node: '>=8'}
@@ -3701,6 +3710,11 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   pretty-format@30.2.0:
     resolution: {integrity: sha512-9uBdv/B4EefsuAL+pWqueZyZS2Ba+LxfFeQ9DN14HU4bN8bhaxKdkpjpB6fs9+pSjIBu+FXQHImEg8j/Lw0+vA==}
@@ -6389,6 +6403,8 @@ snapshots:
       - chokidar
       - supports-color
 
+  animate.css@4.1.1: {}
+
   ansi-escapes@4.3.2:
     dependencies:
       type-fest: 0.21.3
@@ -8385,6 +8401,8 @@ snapshots:
       source-map-js: 1.2.1
 
   prelude-ls@1.2.1: {}
+
+  prettier@3.6.2: {}
 
   pretty-format@30.2.0:
     dependencies:
