@@ -76,12 +76,19 @@ export class AuthService {
         password,
         options: {
           emailRedirectTo: `${environment.URL_APP}/login`,
+          data: {
+            first_name: firstName,
+            last_name: lastName,
+          },
         },
       }),
     ).pipe(
       switchMap((authResponse) => {
         // If registration was successful and we have a user, update their profile
         if (authResponse.data.user && !authResponse.error) {
+          // Redirect to login page after successful registration
+          this.router.navigate(['/login']);
+
           return this.updateUserProfile$(authResponse.data.user.id, firstName, lastName).pipe(
             // Return the original auth response after updating the profile
             switchMap(() => from(Promise.resolve(authResponse))),
