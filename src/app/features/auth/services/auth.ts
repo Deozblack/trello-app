@@ -59,7 +59,7 @@ export class AuthService {
   login$(email: string, password: string): Observable<AuthTokenResponsePassword> {
     this.isLoading.set(true);
     return from(this.supabaseService.client.auth.signInWithPassword({ email, password })).pipe(
-      finalize(() => this.isLoading.set(false))
+      finalize(() => this.isLoading.set(false)),
     );
   }
 
@@ -67,7 +67,7 @@ export class AuthService {
     firstName: string,
     lastName: string,
     email: string,
-    password: string
+    password: string,
   ): Observable<AuthResponse> {
     this.isLoading.set(true);
     return from(
@@ -77,27 +77,27 @@ export class AuthService {
         options: {
           emailRedirectTo: `${environment.URL_APP}/login`,
         },
-      })
+      }),
     ).pipe(
       switchMap((authResponse) => {
         // If registration was successful and we have a user, update their profile
         if (authResponse.data.user && !authResponse.error) {
           return this.updateUserProfile$(authResponse.data.user.id, firstName, lastName).pipe(
             // Return the original auth response after updating the profile
-            switchMap(() => from(Promise.resolve(authResponse)))
+            switchMap(() => from(Promise.resolve(authResponse))),
           );
         }
         // If there's no user or an error, return the original response
         return from(Promise.resolve(authResponse));
       }),
-      finalize(() => this.isLoading.set(false))
+      finalize(() => this.isLoading.set(false)),
     );
   }
 
   private updateUserProfile$(
     userId: string,
     firstName: string,
-    lastName: string
+    lastName: string,
   ): Observable<unknown> {
     return from(
       this.supabaseService.client
@@ -106,7 +106,7 @@ export class AuthService {
           first_name: firstName,
           last_name: lastName,
         })
-        .eq('id', userId)
+        .eq('id', userId),
     );
   }
 
