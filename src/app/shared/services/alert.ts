@@ -4,19 +4,21 @@ import Swal, { SweetAlertIcon, SweetAlertPosition } from 'sweetalert2';
 interface AlertProps {
   icon: SweetAlertIcon;
   message: string;
-  position: SweetAlertPosition;
+  position?: SweetAlertPosition;
+  title?: string;
+  timer?: number;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlertService {
-  createAlert({ icon, message, position = 'top-end' }: AlertProps) {
+  createAlert({ icon, message, position = 'top-end', title, timer = 3000 }: AlertProps) {
     const Toast = Swal.mixin({
-      toast: true,
+      toast: position !== 'center',
       position: position,
-      showConfirmButton: false,
-      timer: 3000,
+      showConfirmButton: position === 'center',
+      timer: timer,
       timerProgressBar: true,
       background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%)',
       color: '#e2e8f0',
@@ -41,7 +43,8 @@ export class AlertService {
     });
     Toast.fire({
       icon: icon,
-      title: message,
+      title: title || message,
+      text: title ? message : undefined,
     });
   }
 }

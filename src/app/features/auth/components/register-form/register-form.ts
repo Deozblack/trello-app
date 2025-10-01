@@ -77,21 +77,31 @@ export class RegisterForm {
         if (response.error) {
           this.alertService.createAlert({
             icon: 'error',
-            message: 'Error al registrar el usuario',
+            title: 'Error al registrarse',
+            message: response.error.message || 'Error al registrar el usuario',
             position: 'top-end',
           });
           return;
         }
+
+        // Successful registration
         this.alertService.createAlert({
           icon: 'success',
-          message: 'Usuario registrado exitosamente',
-          position: 'top-end',
+          title: '¡Registro exitoso!',
+          message: 'Por favor revisa tu correo para confirmar tu cuenta',
+          position: 'center',
+          timer: 5000,
         });
+
+        // Reset form
+        this.registerForm.reset();
+        this.currentStep.set(1);
       },
       error: (error) => {
         console.error('Registration failed:', error);
         this.alertService.createAlert({
           icon: 'error',
+          title: 'Error',
           message: 'Error al registrar el usuario. Intenta de nuevo.',
           position: 'top-end',
         });
