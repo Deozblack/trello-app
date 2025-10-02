@@ -77,8 +77,7 @@ export class RegisterForm {
         if (response.error) {
           this.alertService.createAlert({
             icon: 'error',
-            title: 'Error al registrarse',
-            message: response.error.message || 'Error al registrar el usuario',
+            message: 'Error al registrarse',
             position: 'top-end',
           });
           return;
@@ -87,10 +86,8 @@ export class RegisterForm {
         // Successful registration
         this.alertService.createAlert({
           icon: 'success',
-          title: '¡Registro exitoso!',
-          message: 'Por favor revisa tu correo para confirmar tu cuenta',
+          message: '¡Registro exitoso!',
           position: 'center',
-          timer: 5000,
         });
 
         // Reset form
@@ -101,7 +98,6 @@ export class RegisterForm {
         console.error('Registration failed:', error);
         this.alertService.createAlert({
           icon: 'error',
-          title: 'Error',
           message: 'Error al registrar el usuario. Intenta de nuevo.',
           position: 'top-end',
         });
